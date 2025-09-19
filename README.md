@@ -1,26 +1,26 @@
 # EZ-USB&trade; FX2G3: CAN FD interface application
 
-This code example describes the CAN FD nodes configuration using the EZ-USB&trade; FX2G3 device. In this example, the CAN FD Node-1 sends a CAN FD frame to CAN FD Node-2 every second and vice versa. The CAN FD nodes log the received data over the USB Full-Speed (FS). Each time a CAN FD frame is received, the user LED toggles.
+This code example demonstrates how to configure CAN FD nodes using the EZ-USB&trade; FX2G3 device. In this example, CAN FD Node-1 sends a CAN FD frame to CAN FD Node-2 every second and vice versa. The CAN FD nodes log the received data over USB Full-Speed (FS). Each time a CAN FD frame is received, the user LED toggles.
 
-> **Note:** This code example is an alpha release only for EZ-USB&trade; FX2G3 devices.
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-fx2g3-canfd-interface)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDEwNzMiLCJTcGVjIE51bWJlciI6IjAwMi00MTA3MyIsIkRvYyBUaXRsZSI6IkVaLVVTQiZ0cmFkZTsgRlgyRzM6IENBTiBGRCBpbnRlcmZhY2UgYXBwbGljYXRpb24iLCJyaWQiOiJzdWt1IiwiRG9jIHZlcnNpb24iOiIxLjAuMCIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJXSVJFRCIsIkRvYyBGYW1pbHkiOiJIU0xTX1VTQiJ9)
+[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyNDEwNzMiLCJTcGVjIE51bWJlciI6IjAwMi00MTA3MyIsIkRvYyBUaXRsZSI6IkVaLVVTQiZ0cmFkZTsgRlgyRzM6IENBTiBGRCBpbnRlcmZhY2UgYXBwbGljYXRpb24iLCJyaWQiOiJzdWt1IiwiRG9jIHZlcnNpb24iOiIxLjAuMSIsIkRvYyBMYW5ndWFnZSI6IkVuZ2xpc2giLCJEb2MgRGl2aXNpb24iOiJNQ0QiLCJEb2MgQlUiOiJXSVJFRCIsIkRvYyBGYW1pbHkiOiJIU0xTX1VTQiJ9)
 
 
 ## Requirements
 
 
-- [ModusToolbox&trade;](https://www.infineon.com/modustoolbox) v3.4 or later (tested with v3.4)
+- [ModusToolbox&trade;](https://www.infineon.com/modustoolbox) v3.5 or later (tested with v3.5)
 - Board support package (BSP) minimum required version: 4.3.3
 - Programming language: C
 - Associated parts: [EZ-USB&trade; FX2G3](https://www.infineon.com/cms/en/product/promopages/ez-usb-fx2g3/)
 
 
+
 ## Supported toolchains (make variable 'TOOLCHAIN')
 
-- GNU Arm&reg; Embedded Compiler v11.3.1 (`GCC_ARM`) – Default value of `TOOLCHAIN`
+- GNU Arm&reg; Embedded Compiler v14.2.1 (`GCC_ARM`) – Default value of `TOOLCHAIN`
 - Arm&reg; Compiler v6.22 (`ARM`)
 
 
@@ -33,31 +33,33 @@ This code example describes the CAN FD nodes configuration using the EZ-USB&trad
 
 This example uses the board's default configuration. See the kit user guide to ensure that the board is configured correctly.
 
-This code example requires a minimum of two kits listed in the [Supported kits](#supported-kits-make-variable-target) section. The first kit runs this example as is and the second kit should be programmed with the `USE_CANFD_NODE` macro as "CANFD_NODE_2" in the *main.c* file.
+This example requires a minimum of two kits listed in the [Supported kits](#supported-kits-make-variable-target) section. The first kit runs this example as is and the second kit has to be programmed with the `USE_CANFD_NODE` macro as "CANFD_NODE_2" in the *main.c* file.
 
 **Figure 1. CAN FD connections**
 
 ![](images/fx2g3-canfd-bl.png)
 
-Use jumper wires to establish a connection between CAN FD-NODE-1 and CAN FD-NODE-2 (see **Figure 1**).
+Use jumper wires to establish a connection between CAN FD Node-1 and CAN FD Node-2 (see **Figure 1**).
 
-1. Connect the CAN_H (J5[2]) pin of NODE-1 and NODE-2 using jumper wires on `KIT_FX2G3_104LGA`
+1. Connect the CAN_H (J5[2]) pin of Node-1 and Node-2 using jumper wires on KIT_FX2G3_104LGA
 
-2. Connect the CAN_L (J5[3]) pin of NODE-1 and NODE-2 using jumper wires on `KIT_FX2G3_104LGA`
+2. Connect the CAN_L (J5[3]) pin of Node-1 and Node-2 using jumper wires on KIT_FX2G3_104LGA
 
-3. Connect the GND (J5[4]) pin of NODE-1 and NODE-2 using jumper wires on `KIT_FX2G3_104LGA`
-
+3. Connect the GND (J5[4]) pin of Node-1 and Node-2 using jumper wires on KIT_FX2G3_104LGA
 
 
 ## Software setup
 
 See the [ModusToolbox&trade; tools package installation guide](https://www.infineon.com/ModusToolboxInstallguide) for information about installing and configuring the tools package.
 
-Install a terminal emulator if you don't have one. Instructions in this document use [Tera Term](https://teratermproject.github.io/index-en.html).
+Install a terminal emulator if you do not have one. Instructions in this document use [Tera Term](https://teratermproject.github.io/index-en.html).
 
-Install the **EZ-USB&trade; FX Control Center** (Alpha) application from the [Infineon Developer Center](https://softwaretools.infineon.com/tools/com.ifx.tb.tool.ezusbfxcontrolcenter).
+Install the **EZ-USB&trade; FX Control Center** (Alpha) application from [Infineon Developer Center](https://softwaretools.infineon.com/tools/com.ifx.tb.tool.ezusbfxcontrolcenter).
 
-This example requires no additional software or tools.
+
+### Optional software
+
+[EZ-USB&trade; GPIF III Designer](https://softwaretools.infineon.com/tools/com.ifx.tb.tool.ezusbgpifiiidesigner) - EZ-USB&trade; GPIF III Designer, a desktop application that guides the process of defining general programmable interface and state machine to generate C source header for FX device family.
 
 
 ## Using the code example
@@ -106,7 +108,6 @@ The following example clones the "[EZ-USB&trade; FX2G3: CANFD interface applicat
    project-creator-cli --board-id KIT_FX2G3_104LGA --app-id mtb-example-fx2g3-canfd-interface --user-app-name FX2G3_CANFD_Interface --target-dir "C:/mtb_projects"
    ```
 
-
 The 'project-creator-cli' tool has the following arguments:
 
 Argument | Description | Required/optional
@@ -115,11 +116,13 @@ Argument | Description | Required/optional
 `--app-id`   | Defined in the <id> field of the [CE](https://github.com/Infineon?q=ce-manifest&type=&language=&sort=) manifest | Required
 `--target-dir`| Specify the directory in which the application is to be created if you prefer not to use the default current working directory | Optional
 `--user-app-name`| Specify the name of the application if you prefer to have a name other than the example's default name | Optional
+
 <br>
 
 > **Note:** The project-creator-cli tool uses the `git clone` and `make getlibs` commands to fetch the repository and import the required libraries. For details, see the "Project creator tools" section of the [ModusToolbox&trade; tools package user guide](https://www.infineon.com/ModusToolboxUserGuide) (locally available at {ModusToolbox&trade; install directory}/docs_{version}/mtb_user_guide.pdf).
 
 </details>
+
 
 
 ### Open the project
@@ -154,39 +157,98 @@ For more details, see the [ModusToolbox&trade; tools package user guide](https:/
 </details>
 
 
+### Using this code example with specific products
+
+By default, the code example builds for the `CYUSB2318-BF104AXI` product.
+
+
+#### List of supported products
+
+- `CYUSB2318-BF104AXI`
+
+- `CYUSB2317-BF104AXI`
+
+- `CYUSB2316-BF104AXI`
+
+
+#### Setup for a different product
+
+Perform the following steps to build this code example for a different, supported product:
+
+1. Launch the BSP assistant tool:
+
+   a. **Eclipse IDE:** Launch the **BSP Assistant** tool by navigating to **Quick Panel** > **Tools**
+
+   b. **Visual Studio Code:** Select the ModusToolbox&trade; extension from the menu bar, and launch the **BSP Assistant** tool, available in the **Application** menu of the **MODUSTOOLBOX TOOLS** section from the left pane
+
+2. In **BSP Assistant**, select **Devices** from the tree view on the left
+
+3. Choose `CYUSB231x-BF104AXI` from the drop-down menu, on the right
+
+4. Click **Save**
+
+   This closes the **BSP Assistant** tool.
+
+5. Navigate the project with the IDE's **Explorer** and delete the *GeneratedSource* folder (if available) at *`<bsp-root-folder>`/bsps/TARGET_APP_KIT_FX2G3_104LGA/config*
+
+   > **Note:** For products `CYUSB2315-BF104AXI` and `CYUSB2316-BF104AXI`, additionally delete the `*.cyqspi` file from the config/ directory
+
+6. Launch the **Device Configurator** tool
+
+   a. **Eclipse IDE:** Select your project in the project explorer, and launch the **Device Configurator** tool by navigating to **Quick Panel** > **Tools**
+
+   b. **Visual Studio Code:** Select the ModusToolbox&trade; extension from the left menu bar, and launch the **Device Configurator** tool, available in the **BSP** menu of the **MODUSTOOLBOX TOOLS** section from the left pane
+
+7. Correct the issues (if any) specified in the **Errors** section on the bottom
+
+   a. For a switch from the `CYUSB2318-BF104AXI` product to any other, a new upper limit of 100 MHz is imposed on the desired frequency that can originate from the PLL. Select this issue and change the desired frequency from 150 MHz to 75 MHz
+
+   b. The `CLK_PERI` clock, which is derived from this new source frequency, is also affected. To restore it to its original frequency, go to the **System Clocks** tab, select `CLK_PERI`, and set its divider to '1' (instead of '2')
+
+
+> **Note:** For the `CYUSB2315-BF104AXI` product, to enable UART logging through SCB, follow the steps below:<br>
+a. Set the `USBFS_LOGS_ENABLE` macro to `0` in the **Makefile**<br>
+b. In **main.c**, modify the SCB configuration by changing `LOGGING_SCB` from `(SCB4)` to `(SCB0)`, `LOGGING_SCB_IDX` from `(4)` to `(0)` and the value of `dbgCfg.dbgIntfce` from `CY_DEBUG_INTFCE_UART_SCB4` to `CY_DEBUG_INTFCE_UART_SCB0`<br>
+c. Launch the Device Configurator tool to disable `SCB4`, and enable `SCB0` for UART. Set `921600` baud, `9` Oversample, and use the `16 bit Divider 0 clk` clock
+
 ## Operation
 
-1. Connect the board (J2) to your PC using the provided USB cable. Connect the USBFS port (J7) on the board to PC for debug logs
+**Note:** This code example currently supports Windows hosts. Support for Linux and macOS will be added in upcoming releases.
 
-2. Open a terminal program and select the Serial COM port. Set the serial port parameters to 8N1 and 921600 baud
+1. Connect the board (J2) to your PC using the provided USB cable
 
-3. Perform the following steps to program the board using the [**EZ-USB&trade; FX Control Center**](https://softwaretools.infineon.com/tools/com.ifx.tb.tool.ezusbfxcontrolcenter) (Alpha) application
+2. Connect the USBFS port (J7) on the board to the PC for debug logs
 
-   1. To enter into Bootloader mode:
+3. Open a terminal program and select the Serial COM port. Set the serial port parameters to 8N1 and 921600 baud
+
+4. Follow these steps to program the board using the [**EZ-USB&trade; FX Control Center**](https://softwaretools.infineon.com/tools/com.ifx.tb.tool.ezusbfxcontrolcenter) (Alpha) application
+
+   1. Perform the following steps to enter into the **Bootloader** mode:
 
       a. Press and hold the **PMODE** (**SW1**) switch<br>
       b. Press and release the **RESET** switch<br>
-      c. Finally, release the **PMODE** switch<br>
+      c. Release the **PMODE** switch<br>
 
-   2. Open **EZ-USB&trade; FX Control Center** application <br>
-   The **EZ-USB&trade; FX2G3** device enumerated as **EZ-USB&trade; FX Bootloader**
-
-   3. Select the **EZ-USB&trade; FX Bootloader** device in **EZ-USB&trade; FX Control Center** 
+   2. Open **EZ-USB&trade; FX Control Center** application
+      The **EZ-USB&trade; FX2G3** device displays as **EZ-USB&trade; FX BOOTLOADER**
+      
+   3. Select the **EZ-USB&trade; FX BOOTLOADER** device in **EZ-USB&trade; FX Control Center** 
 
    4. Navigate to **Program** > **Internal Flash**
 
-   5. Navigate to the **/build/APP_KIT_FX2G3_104LGA/Release/** folder within the CE directory and locate the *.hex* file, and program
+   5. Navigate to the *<CE Title>/build/APP_KIT_FX2G3_104LGA/Release* folder within the CE directory and locate the *.hex* file and program
 
    6. Confirm if the programming is successful in the log window of the **EZ-USB&trade; FX Control Center** application
    
-4. After programming, the application starts automatically. Confirm that the title is displayed on the UART terminal as follows:
+5. After programming, the application starts automatically. Confirm that the following title is displayed on the UART terminal:
 
-   **Figure 2. Terminal output on program startup**
+      **Figure 2. Terminal output on program startup**
 
-   ![](images/terminal-fx2g3-canfd-interface.png)
+      ![](images/terminal-fx2g3-canfd-interface.png)
 
 
 ## Debugging
+
 
 ### Using the Arm&reg; debug port
 
@@ -206,30 +268,27 @@ Use the **\<Application Name> Debug (KitProg3_MiniProg4)** configuration in the 
 Follow the instructions in your preferred IDE.
 </details>
 
+
 ### Log messages
 
 By default, the USBFS port is enabled for debug logs.
 
-To enable debug logs on UART, set the `USBFS_LOGS_ENABLE` compiler flag to '0u' in the *makefile*. SCB4 of the EZ-USB&trade; FX2G3 device is used as UART with a baud rate of 921600 to send out log messages through the P11.0 pin.
+To enable debug logs on UART, set the **USBFS_LOGS_ENABLE** compiler flag to '0u' in the *Makefile* file. SCB4 of the EZ-USB&trade; FX2G3 device is used as UART with a baud rate of 921,600 to send out log messages through the P11.0 pin.
 
-The verbosity of the debug log output can be modified by setting `DEBUG_LEVEL` macro in the *main.c* file with the values shown in **Figure 1**.
+Debug the code example by setting debug levels for the UART logs. Set the `DEBUG_LEVEL` macro in the *main.c* file with the following values for debugging:
 
 **Table 1. Debug values**
-
 
  Macro value  | Description
  :--------    | :-------------
  1u           | Enable only error messages
  2u           | Enable error and warning messages
- 3u           | Enable info messages as well
+ 3u           | Enable error, warning, and info messages
  4u           | Enable all message types
 <br>
 
 
 ## Design and implementation
-
-> **Note:** The EZ-USB&trade; FX2G3 device has four MPNs/OPNs, each with distinct features. By default, this code example is compatible with the `CYUSB2318-BF104AXI` MPN, which is available on the `KIT_FX2G3_104LGA` kit. To use this code example with other MPNs, evaluate MPN compatibility and align it with the corresponding feature set. For details, contact the [Infineon support](https://www.infineon.com/cms/en/about-infineon/company/contacts/support/).
-
 
 In this code example, the CAN FD block is configured with custom configurations because it is not configured to work with default BSP configurations.
 
@@ -241,6 +300,8 @@ This design consists of a CAN FD configuration as nodes. Each second, nodes send
 - **ID:** CAN FD identifier
 - **DLC:** Data length code
 - **Data:** Actual data bytes
+
+**Table 2. CAN FD frame format**
 
  ID           | DLC                  | Data
  :--------    | :-------------       | :------------------
@@ -257,39 +318,39 @@ This design consists of a CAN FD configuration as nodes. Each second, nodes send
 ![](images/fx2g3-canfd-config2.png)
 
 
-### Compile-time configurations
+## Compile-time configurations
 
-Application functionality can be customized by setting variables in *Makefile* or by configuring them through `make` CLI arguments.
+This application's functionality can be customized by setting variables in *Makefile* or by configuring them through `make` CLI arguments.
 
-- Run the `make build` command or build the project in your IDE to compile the application and generate a USB bootloader-compatible binary. This binary can be programmed onto the EZ-USB&trade; FX2G3 device using the EZ-USB&trade; Control Center application
-
-- Run the `make build BLENABLE=no` command or set the variable in *Makefile* to compile the application and generate the standalone binary. This binary can be programmed onto the EZ-USB&trade; FX2G3 device through the SWD interface using the OpenOCD tool. For more details, see the [EZ-USB&trade; FX2G3 SDK user guide](./docs/EZ-USB-FX2G3-SDK-User-Guide.pdf)
+- Run the `make build` command or build the project in your IDE to compile the application and generate a USB bootloader-compatible binary. This binary can be programmed onto the EZ-USB&trade; FX2G3 device using the **EZ-USB&trade; FX Control Center** application
 
 - Run the `make build CORE=CM0P` command or set the variable in *Makefile* to compile and generate the binary for the Cortex&reg; M0+ core. By default, `CORE` is set as `CM4` and the binary is compiled and generated for the Cortex&reg; M4 core
 
 - Choose between the **Arm&reg; Compiler** or the **GNU Arm&reg; Embedded Compiler** build toolchains by setting the `TOOLCHAIN` variable in *Makefile* to `ARM` or `GCC_ARM` respectively. If you set it to `ARM`, ensure to set `CY_ARM_COMPILER_DIR` as a make variable or environment variable, pointing to the path of the compiler's root directory
 
 - Run the `make build REV02=no` command or set the variable in *Makefile* to compile the application and generate the binary compatible with the REV01 version of the EZ-USB&trade; FX2G3 kit
-> **Note:** If REV02 Kit is used, FPGA is configured using SMIF in x4 or Quad mode else (for REV01) FPGA is configured using SMIF in x1 or Single mode.
+
+> **Note:** If the REV02 kit is used, FPGA is configured using SMIF in x4 or quad mode else (for REV01) FPGA is configured using SMIF in x1 or single mode.
 
 Additional settings can be configured through macros specified by the `DEFINES` variable in *Makefile*:
 
 **Table 2. Macro description**
 
- Macro name        |  Description                          | Allowed values
- :--------         | :-------------                        | :------------
- USBFS_LOGS_ENABLE | Enable debug logs through USBFS port  | 1u for debug logs over USBFS <br> 0u for debug logs over UART (SCB4)
+Flag name         | Description                               | Allowed values
+:-------------    | :------------                             | :--------------
+USBFS_LOGS_ENABLE | Enable debug logs through the USBFS port  | 1u for debug logs over USBFS <br> 0u for debug logs over UART (SCB4)
 <br>
 
 
-### Application files
+## Application files
 
 **Table 3. Application file description**
-File                                | Description   
-:-------------                      | :------------                         
-*main.c*                            | Source file for device initialization, ISRs, and CAN interface initialization, etc.
-*cm0_code.c*                        | CM0 initialization code
-*Makefile*                          | GNU make compliant build script for compiling this example
+
+File                                              | Description   
+:-------------                                    | :------------                         
+*main.c*                                          | Source file for device initialization, ISRs, and CAN interface initialization, etc.
+*cm0_code.c*                                      | CM0 initialization code
+*Makefile*                                        | GNU make compliant build script for compiling this example
 <br>
 
 
@@ -301,11 +362,14 @@ User guide | [EZ-USB&trade; FX2G3 SDK user guide](./docs/EZ-USB-FX2G3-SDK-User-G
 Code examples  | [Using ModusToolbox&trade;](https://github.com/Infineon/Code-Examples-for-ModusToolbox-Software) on GitHub
 Device documentation | [EZ-USB&trade; FX2G3 datasheets](https://www.infineon.com/cms/en/product/promopages/ez-usb-fx2g3/#!?fileId=8ac78c8c90530b3a01909c03f29537e0)
 Development kits | Select your kits from the [Evaluation board finder](https://www.infineon.com/cms/en/design-support/finder-selection-tools/product-finder/evaluation-board)
-Libraries on GitHub | [mtb-pdl-cat1](https://github.com/Infineon/mtb-pdl-cat1) – Peripheral Driver Library (PDL) and docs
-Middleware on GitHub  | [usbfxstack](https://github.com/Infineon/usbfxstack) – USBFXStack middleware library and docs
+Libraries on GitHub | [mtb-pdl-cat1](https://github.com/Infineon/mtb-pdl-cat1) – Peripheral Driver Library (PDL) and documents
+Middleware on GitHub  | [usbfxstack](https://github.com/Infineon/usbfxstack) – USBFXStack middleware library and documents
 Tools  | [ModusToolbox&trade;](https://www.infineon.com/modustoolbox) – ModusToolbox&trade; software is a collection of easy-to-use libraries and tools enabling rapid development with Infineon MCUs for applications ranging from wireless and cloud-connected systems, edge AI/ML, embedded sense and control, to wired USB connectivity using PSOC&trade; Industrial/IoT MCUs, AIROC&trade; Wi-Fi and Bluetooth&reg; connectivity devices, XMC&trade; Industrial MCUs, and EZ-USB&trade;/EZ-PD&trade; wired connectivity controllers. ModusToolbox&trade; incorporates a comprehensive set of BSPs, HAL, libraries, configuration tools, and provides support for industry-standard IDEs to fast-track your embedded application development
-
 <br>
+
+### Compatibility information:
+* This code example uses the PDL layer for direct communication with device peripherals, without relying on HAL peripheral APIs
+* This code example relies on the USBFXStack middleware library for USBFS and does not support USBFS through the USB Device Middleware Library
 
 
 ## Other resources
@@ -321,13 +385,16 @@ Document title: *CE241073* – *EZ-USB&trade; FX2G3: CAN FD interface applicatio
  Version | Description of change
  ------- | ---------------------
  1.0.0   | New code example
+ 1.0.1   | Updated to use the example with other products
 <br>
+
 
 
 All referenced product or service names and trademarks are the property of their respective owners.
 
 The Bluetooth&reg; word mark and logos are registered trademarks owned by Bluetooth SIG, Inc., and any use of such marks by Infineon is under license.
 
+PSOC&trade;, formerly known as PSoC&trade;, is a trademark of Infineon Technologies. Any references to PSoC&trade; in this document or others shall be deemed to refer to PSOC&trade;.
 
 ---------------------------------------------------------
 

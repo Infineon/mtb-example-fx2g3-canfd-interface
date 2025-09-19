@@ -227,7 +227,7 @@ void Cy_CAN_ReceiveCb(bool msg_valid,
         /* Checking whether the frame received is a data frame */
         if (CY_CANFD_RTR_DATA_FRAME == canfd_rx_buf->r0_f->rtr)
         {
-        	Cy_GpioToggle(100);
+            Cy_GpioToggle(100);
             canfd_dlc = canfd_rx_buf->r1_f->dlc;
             canfd_id = canfd_rx_buf->r0_f->id;
 
@@ -237,7 +237,7 @@ void Cy_CAN_ReceiveCb(bool msg_valid,
 
             for(index = 0; index < canfd_dlc; index++)
             {
-            	DBG_APP_INFO("RX Buf[%d]: 0x%x \n\r", index,canfd_data_buffer[index]);
+                DBG_APP_INFO("RX Buf[%d]: 0x%x \n\r", index,canfd_data_buffer[index]);
             }
         }
     }
@@ -307,15 +307,15 @@ void Cy_PeripheralInit(void)
  */
 int main(void)
 {
-	/* Initialize the PDL driver library and set the clock variables. */
+    /* Initialize the PDL driver library and set the clock variables. */
     /* Note: All FX devices,  share a common configuration structure. */
-	Cy_PDL_Init(&cy_deviceIpBlockCfgFX3G2);
+    Cy_PDL_Init(&cy_deviceIpBlockCfgFX3G2);
 
-	/* Initialize the device and board peripherals */
-	cybsp_init();
+    /* Initialize the device and board peripherals */
+    cybsp_init();
 
-	/* Initialize the device and board peripherals */
-	Cy_PeripheralInit();
+    /* Initialize the device and board peripherals */
+    Cy_PeripheralInit();
 
 #if DEBUG_INFRA_EN
 #if !USBFS_LOGS_ENABLE
@@ -340,9 +340,9 @@ int main(void)
 
     for (;;)
     {
-    	Cy_CAN_SendData();
-    	DBG_APP_INFO("CAN Node - 0x%x \n\r", USE_CANFD_NODE);
-    	Cy_SysLib_Delay(1000);
+        Cy_CAN_SendData();
+        DBG_APP_INFO("CAN Node - 0x%x \n\r", USE_CANFD_NODE);
+        Cy_SysLib_Delay(1000);
     }
 
     /* Return statement will not be hit. */
